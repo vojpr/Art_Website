@@ -238,7 +238,10 @@ border: none;
 border-bottom: 1px solid #fff;
 outline: none;
 background: transparent;
+border-radius: 0;
+-webkit-appearance: none;
 }
+
 .form-box .input-box label {
 position: absolute;
 top:0;
