@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load custom_template_tags %}
+
+{% block content %}
+
+<body id="artistBody" class="">
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="{% url 'home' %}">Find Arts</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#search">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#inspiration">Inspiration</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero-artist-->
+    <header class="hero-artist" style="background: black">
+        <div class="container px-4 px-lg-5 d-flex h-100 justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <div class="artist-image-div row gx-0 mb-4 mb-lg-5">
+                        {% if data|index:'image' %}
+                        <div>
+                            <img class="img-fluid mb-3 mb-lg-0" src="{{ data|index:'image' }}" onerror="javascript:this.style='visibility: hidden;'"/>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h1 class="mx-auto my-0 text-uppercase">{{ data|index:"artistName" }}</h1>
+                    {% if data|index:"birthDayAsString" and data|index:'deathDayAsString' %}
+                        <h2 class="text-white-50 mx-auto mt-4 mb-5">({{ data|index:"birthDayAsString" }} - {{ data|index:"deathDayAsString" }})</h2>
+                    {% elif data|index:"birthDayAsString" %}
+                        <h2 class="text-white-50 mx-auto mt-4 mb-5">(Born {{ data|index:"birthDayAsString" }})</h2>
+                    {% endif %}
+                    <h2 class="artist-bio text-white-50 mx-auto mt-2 mb-5">{{ biography }}</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Paintings -->
+    <section class="paintings-section bg-light" id="paintings">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <!-- Carousel-->
+                <div id="paintings-carousel" class="carousel carousel-dark slide" data-bs-ride="false">
+                    <div class="carousel-inner">
+                        {% for painting in paintings_data %}
+                        <div class="carousel-item {% if painting == paintings_data|index:0 %}active{% endif %}">
+                            <div class="carousel-image-div mx-auto">
+                                <img src="{{ painting|index:'image' }}" class="carousel-image d-block img-fluid mb-3 mb-lg-0">
+                            </div>
+                            <div class="justify-content-center">
+                                <h2 class="text-black-50 mx-auto mt-2"><a href="{% url 'artwork' artwork_id=painting|index:'id' artist_name=painting|index:'artistName' %}">{{ painting|index:"title" }}</a></h2>
+                                {% if painting|index:'completitionYear' %}
+                                <h2 class="text-black-50 mx-auto mt-2">({{ painting|index:'completitionYear' }})</h2>
+                                {% else %}
+                                <h2 class="text-black-50 mx-auto mt-2">(Year unknown)</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#paintings-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#paintings-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

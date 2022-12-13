@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load custom_template_tags %}
+
+{% block content %}
+
+<body id="searchBody" class="bg-light">
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="searchNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="{% url 'home' %}">Find Arts</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#search">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#inspiration">Inspiration</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Search results -->
+    <section class="bg-light" id="searchResults">
+        <div class="container px-4 px-lg-5">
+            <div class="row ng-scope">
+                <div class="search-results-div mx-auto col-md-7 col-md-pull-3">
+                    <!-- Artist search results -->
+                    {% if search == "artist" %}
+                        {% if artists_details %}
+                        <div>
+                            <h1 class="text-black-50 mb-5">Search results for: {{ searched_name }}</h1>
+                        </div>
+                        {% else %}
+                        <div>
+                            <h1 class="text-black-50 mb-5">No search results for: {{ searched_name }}</h1>
+                        </div>
+                        {% endif %}
+                        {% for artist in artists_details %}
+                        <section class="search-result-item">
+                            <a class="image-link" href="{% url 'artist' artist_url=artist|index:'artistUrl' artist_id=artist|index:'artistId' %}">
+                                {% if artist|index:'image' %}
+                                    <img class="image" src="{{ artist|index:'image' }}" onerror="javascript:this.style='visibility: hidden;'">
+                                {% endif %}
+                            </a>
+                            <div class="search-result-item-body">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h2 class="search-result-item-heading text-black-50 mb-2"><a href="{% url 'artist' artist_url=artist|index:'artistUrl' artist_id=artist|index:'artistId' %}">{{ artist|index:"artistName" }}</a></h2>
+                                        {% if artist|index:"birthDayAsString" and artist|index:'deathDayAsString' %}
+                                            <h2 class="description text-black-50">({{ artist|index:"birthDayAsString" }} - {{ artist|index:"deathDayAsString" }})</h2>
+                                        {% elif artist|index:"birthDayAsString" %}
+                                            <h2 class="description text-black-50">(Born {{ artist|index:"birthDayAsString" }})</h2>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- Artwork search results -->
+                    {% if search == "artwork" %}
+                        {% if artworks_data %}
+                        <div>
+                            <h1 class="text-black-50 mb-5">Search results for: {{ searched_artwork }}</h1>
+                        </div>
+                        {% else %}
+                        <div>
+                            <h1 class="text-black-50 mb-5">No search results for: {{ searched_artwork }}</h1>
+                        </div>
+                        {% endif %}
+                        {% for artwork in artworks_data %}
+                        <section class="search-result-item">
+                            <a class="image-link" href="{% url 'artwork' artwork_id=artwork|index:'id' artist_name=artwork|index:'artistName' %}">
+                                {% if artwork|index:'image' %}
+                                    <img class="image" src="{{ artwork|index:'image' }}" onerror="javascript:this.style='visibility: hidden;'">
+                                {% endif %}
+                            </a>
+                            <div class="search-result-item-body">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h2 class="search-result-item-heading text-black-50 mb-2"><a href="{% url 'artwork' artwork_id=artwork|index:'id' artist_name=artwork|index:'artistName' %}">{{ artwork|index:"title" }}</a></h2>
+                                        {% if artwork|index:"artistName" %}
+                                            <h2 class="description text-black-50">{{ artwork|index:"artistName" }}</h2>
+                                        {% endif %}
+                                        {% if artwork|index:"completitionYear" %}
+                                            <h2 class="description text-black-50">({{ artwork|index:"completitionYear" }})</h2>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

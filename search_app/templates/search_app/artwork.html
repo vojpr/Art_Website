@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load custom_template_tags %}
+
+{% block content %}
+
+<body id="artworkBody" class="bg-light">
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="searchNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="{% url 'home' %}">Find Arts</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#search">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#inspiration">Inspiration</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Painting -->
+    <section class="paintings-section bg-light">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <div class="artwork-image-div mx-auto">
+                    <img src="{{ data|index:'image' }}" class="artwork-image d-block img-fluid mb-3 mb-lg-0">
+                </div>
+                <div class="justify-content-center">
+                    <h1 class="text-black-50 mx-auto mt-3 artwork-name">{{ data|index:'title' }}</h1>
+                    <h2 class="text-black-50 mx-auto mt-2"><a href="{% url 'artist' artist_url=data|index:'artistUrl' artist_id=data|index:'artistId' %}">{{ artist_name }}</a></h2>
+                    {% if data|index:'completitionYear' %}
+                    <h2 class="text-black-50 mx-auto mt-2 mb-5">({{ data|index:'completitionYear' }})</h2>
+                    {% else %}
+                    <h2 class="text-black-50 mx-auto mt-2 mb-5">(Year unknown)</h2>
+                    {% endif %}
+                    <h2 class="artwork-description text-black-50 mx-auto mt-2">{{ description }}</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
