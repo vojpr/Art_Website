@@ -27,8 +27,7 @@ def search_artist(request):
             artists_found.append({"artistUrl": painting["artistUrl"], "artistId": painting["artistId"]})
     # Use API to search for artists details using each "artistURL"
     artists_details = []
-    for artist in artists_found:
-        count = 0
+    for count, artist in enumerate(artists_found):
         url = REQUEST_ARTIST_URL + artist["artistUrl"]
         response = requests.get(url=url, params=REQUEST_ARTIST_PARAMS)
         artist_data = response.json()
@@ -36,7 +35,6 @@ def search_artist(request):
         artist_data["artistUrl"] = artists_found[count]["artistUrl"]
         artist_data["artistId"] = artists_found[count]["artistId"]
         artists_details.append(artist_data)
-        count += 1
     context = {
         "search": "artist",
         "searched_name": searched_name,
