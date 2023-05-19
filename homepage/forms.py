@@ -21,3 +21,4 @@ class ArtworkSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"type": "text", "autocomplete": "off"}), 
         max_length=100
         )
+    
