@@ -5,7 +5,7 @@ from utils.constants import REQUEST_MOST_VIEWED_PAINTINGS
 
 
 class HomeView(TemplateView):
-    template_name = "index.html"
+    template_name = "homepage/index.html"
     # Use API for most viewed paintings to show in the inspiration section
     response = requests.get(url=REQUEST_MOST_VIEWED_PAINTINGS)
     inspiration_data = response.json()["data"]
