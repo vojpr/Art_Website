@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import unidecode
 import re
 import random
 import requests
