@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'search_app.apps.SearchAppConfig',
+    'search_app.apps',
+    'homepage',
      'whitenoise.runserver_nostatic',
 ]
 
