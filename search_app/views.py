@@ -10,10 +10,10 @@ from django.utils.text import slugify
 
 
 def search_artist(request):
-    first_name = request.GET['first_name']
+    first_name = request.GET.get("first_name", "")
     if first_name:
         first_name = first_name + " "
-    last_name = request.GET['last_name']
+    last_name = request.GET.get("last_name", "")
     searched_name = first_name + last_name
     searched_name_slug = slugify(searched_name)
     # API for artist search by name not created by Wikiart yet
@@ -71,7 +71,7 @@ def artist(request, artist_url, artist_id):
 
 
 def search_artwork(request):
-    searched_artwork = request.GET['artwork_name']
+    searched_artwork = request.GET.get("artwork_name", "")
     searched_artwork_slug = slugify(searched_artwork)
     # Use API to search paintings by name
     url = REQUEST_PAINTING_BY_NAME_URL + searched_artwork_slug
