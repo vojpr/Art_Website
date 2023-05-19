@@ -48,12 +48,12 @@
                             <div class="form-box">
                                 <form method="GET" action="{% url 'search_artist' %}">
                                     <div class="input-box">
-                                        <input type="text" name="first-name" autocomplete="off" placeholder=" " class="not-required">
-                                        <label>Artist's first name</label>
+                                        {{ artist_search_form.first_name }}
+                                        <label>{{ artist_search_form.first_name.label }}</label>
                                     </div>
                                     <div class="input-box">
-                                        <input type="text" name="last-name" autocomplete="off" required>
-                                        <label>Artist's last name</label>
+                                        {{ artist_search_form.last_name }}
+                                        <label>{{ artist_search_form.last_name.label }}</label>
                                     </div>
                                     <button class="submit-btn" type="submit" name="form_1">Search</button>
                                 </form>
@@ -63,8 +63,8 @@
                             <div class="form-box">
                                 <form method="GET" action="{% url 'search_artwork' %}">
                                     <div class="input-box">
-                                        <input type="text" name="artwork-name" autocomplete="off" required>
-                                        <label>Artwork name</label>
+                                        {{ artwork_search_form.artwork_name }}
+                                        <label>{{ artwork_search_form.artwork_name.label }}</label>
                                     </div>
                                     <button class="submit-btn" type="submit" name="form_2">Search</button>
                                 </form>

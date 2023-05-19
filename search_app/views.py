@@ -10,10 +10,10 @@ from utils.functions import add_all_pages
 
 
 def search_artist(request):
-    first_name = request.GET['first-name']
+    first_name = request.GET['first_name']
     if first_name != "":
         first_name = first_name + " "
-    last_name = request.GET['last-name']
+    last_name = request.GET['last_name']
     searched_name = first_name + last_name
     # Replace any spaces with dashes and convert unicode to ascii
     name_url = unidecode.unidecode(searched_name.replace(' ', '-').lower())
@@ -24,10 +24,8 @@ def search_artist(request):
     paintings_data = response.json()["data"]
     artists_found = []
     for painting in paintings_data:
-        if name_url in painting["artistUrl"] and {"artistUrl": painting["artistUrl"],
-                                                  "artistId": painting["artistId"]} not in artists_found:
-            artists_found.append(
-                {"artistUrl": painting["artistUrl"], "artistId": painting["artistId"]})
+        if name_url in painting["artistUrl"] and {"artistUrl": painting["artistUrl"], "artistId": painting["artistId"]} not in artists_found:
+            artists_found.append({"artistUrl": painting["artistUrl"], "artistId": painting["artistId"]})
     # Use API to search for artists details using each "artistURL"
     artists_details = []
     for artist in artists_found:
@@ -63,8 +61,7 @@ def artist(request, artist_url, artist_id):
     paintings_response = requests.get(url=paintings_url)
     paintings_data = paintings_response.json()["data"]
     # Get paintings from all pages in case of pagination
-    paintings_data = add_all_pages(
-        paintings_response, paintings_data, paintings_url)
+    paintings_data = add_all_pages(paintings_response, paintings_data, paintings_url)
     random.shuffle(paintings_data)
     context = {
         "data": data,
@@ -75,17 +72,15 @@ def artist(request, artist_url, artist_id):
 
 
 def search_artwork(request):
-    searched_artwork = request.GET['artwork-name']
+    searched_artwork = request.GET['artwork_name']
     # Replace any spaces with dashes and convert unicode to ascii
-    searched_artwork_url = unidecode.unidecode(
-        searched_artwork.replace(' ', '-').lower())
+    searched_artwork_url = unidecode.unidecode(searched_artwork.replace(' ', '-').lower())
     # Use API to search paintings by name
     url = REQUEST_PAINTING_BY_NAME_URL + searched_artwork_url
     response = requests.get(url=url)
     artworks_data = response.json()["data"]
     # Sort by completion year
-    artworks_data = sorted(
-        artworks_data, key=lambda each: str(each['completitionYear']))
+    artworks_data = sorted(artworks_data, key=lambda each: str(each['completitionYear']))
     context = {
         "search": "artwork",
         "searched_artwork": searched_artwork,
