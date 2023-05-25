@@ -581,11 +581,7 @@ width: 100%;
 height: auto;
 min-height: 35rem;
 padding: 15rem 0;
-background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("/static/img/bg-hero.jpg");
-background-position: center;
-background-repeat: no-repeat;
-background-attachment: scroll;
-background-size: cover;
+background: black;
 }
 
 @media (min-width: 992px) {
@@ -865,3 +861,19 @@ object-fit: contain;
     text-align: justify !important;
     white-space: pre-line;
 }
+
+/*------------- 404.html & 500.html ----------------*/
+.hero-error {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 15rem 0;
+    background: linear-gradient(to bottom, rgb(0 0 0 / 75%) 0%, rgba(0, 0, 0, 90%) 75%, #000 100%), url(/static/img/bg-hero.44505073189e.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    }
+
+    

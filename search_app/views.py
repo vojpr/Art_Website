@@ -48,6 +48,8 @@ def artist(request, artist_url, artist_id):
     url = REQUEST_ARTIST_URL + artist_url
     response = requests.get(url=url, params=REQUEST_ARTIST_PARAMS)
     data = response.json()
+    if data["artistName"] == None:
+        raise ValueError
     if data["biography"]:
         # Convert biography to plain text
         biography = re.sub("[\(\[].*?[\)\]]", "", data["biography"])
