@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseServerError
 import re
 import random
 import requests
@@ -49,7 +50,7 @@ def artist(request, artist_url, artist_id):
     response = requests.get(url=url, params=REQUEST_ARTIST_PARAMS)
     data = response.json()
     if data["artistName"] == None:
-        raise ValueError
+        raise HttpResponseServerError()
     if data["biography"]:
         # Convert biography to plain text
         biography = re.sub("[\(\[].*?[\)\]]", "", data["biography"])
