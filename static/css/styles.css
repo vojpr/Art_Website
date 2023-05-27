@@ -1,6 +1,7 @@
 /*-------------  General ----------------*/
 html {
 scroll-padding-top: calc(4.5rem - 1px);
+background: black;
 }
 
 body {
@@ -866,7 +867,7 @@ object-fit: contain;
 .hero-error {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 100vh;
     min-height: 35rem;
     padding: 15rem 0;
     background: linear-gradient(to bottom, rgb(0 0 0 / 75%) 0%, rgba(0, 0, 0, 90%) 75%, #000 100%), url("/static/img/bg-hero.jpg");
