@@ -563,10 +563,6 @@ font-size: 1rem;
 
 /*-------------  artist.html ----------------*/
 /*-------------  Hero-artist ----------------*/
-#artistBody {
-background: black !important;
-}
-
 #artistBody a {
 color: rgba(0,0,0,.5);
 text-decoration: none;
