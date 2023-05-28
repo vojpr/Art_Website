@@ -11,11 +11,7 @@ from django.utils.text import slugify
 
 
 def search_artist(request):
-    first_name = request.GET.get("first_name", "")
-    if first_name:
-        first_name = first_name + " "
-    last_name = request.GET.get("last_name", "")
-    searched_name = first_name + last_name
+    searched_name = " ".join((request.GET.get("first_name", ""), request.GET.get("last_name", "")))
     searched_name_slug = slugify(searched_name)
     # API for artist search by name not created by Wikiart yet
     # Use API for painting search by name instead and extract relevant data (artist name and ID)
