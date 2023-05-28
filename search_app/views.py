@@ -6,7 +6,7 @@ import requests
 import random
 from utils.constants import REQUEST_PAINTING_BY_NAME_URL, REQUEST_ARTIST_URL, REQUEST_PAINTING_BY_ARTIST_ID_URL, \
     REQUEST_PAINTING_BY_ID_URL, REQUEST_ARTIST_PARAMS
-from utils.functions import add_all_pages
+from utils.functions import get_paginated_data
 from django.utils.text import slugify
 
 
@@ -54,10 +54,8 @@ def artist(request, artist_url, artist_id):
         biography = ""
     # Use API to search for paintings using "artistID"
     paintings_url = REQUEST_PAINTING_BY_ARTIST_ID_URL + artist_id
-    paintings_response = requests.get(url=paintings_url)
-    paintings_data = paintings_response.json()["data"]
     # Get paintings from all pages in case of pagination
-    paintings_data = add_all_pages(paintings_response, paintings_data, paintings_url)
+    paintings_data = get_paginated_data(paintings_url)
     random.shuffle(paintings_data)
     context = {
         "data": data,
