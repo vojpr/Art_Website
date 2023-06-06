@@ -152,3 +152,10 @@ CACHES = {
         }
     }
 }
+
+# Dummy Cache for development/testing
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+#     }
+# }
